@@ -178,7 +178,7 @@ samples_per_gpu = 1
 workers_per_gpu = 4
 img_norm_cfg = dict(mean=[123.675, 116.28, 103.53], std=[58.395, 57.12, 57.375], to_rgb=True)
 train_pipeline = [dict(type='LoadAnnotations', with_bbox=True, with_mask=True),
-                  dict(type='YOLOXHSVRandomAug'),
+                  dict(type='RandomHSV'),
                   dict(type='Resize', img_scale=img_scale, keep_ratio=True),
                   dict(type='RandomFlip', flip_ratio=0.5),
                   dict(type='Normalize', **img_norm_cfg),
@@ -213,7 +213,7 @@ data = dict(samples_per_gpu=samples_per_gpu,
                       img_prefix=data_root + 'images/test2017/',
                       pipeline=test_pipeline))
 evaluation = dict(interval=1, metric=['bbox', 'segm'])
-optimizer = dict(type='AdamW', lr=0.0001 * (samples_per_gpu / 2),
+optimizer = dict(type='AdamW', lr=0.0001,
                  betas=(0.9, 0.999), weight_decay=0.05,
                  paramwise_cfg=dict(custom_keys={'absolute_pos_embed': dict(decay_mult=0.),
                                                  'relative_position_bias_table': dict(decay_mult=0.),
