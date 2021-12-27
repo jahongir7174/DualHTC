@@ -2,6 +2,7 @@ import argparse
 import copy
 import os
 import time
+import warnings
 
 import mmcv
 import mmdet
@@ -12,10 +13,12 @@ from mmcv.runner import init_dist, get_dist_info, load_checkpoint, wrap_fp16_mod
 from mmcv.utils import get_git_hash, collect_env
 from mmdet.apis import multi_gpu_test, single_gpu_test, set_random_seed, train_detector
 from mmdet.datasets import build_dataloader, replace_ImageToTensor
-from mmdet.models import build_detector
 from mmdet.utils import collect_env, get_root_logger
 
+from nets.builder import build_detector
 from utils.dataset import build_dataset
+
+warnings.filterwarnings("ignore")
 
 
 def train(args):
